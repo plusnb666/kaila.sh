@@ -6,6 +6,7 @@
 #include <sstream>
 #include <filesystem>
 #include <unistd.h>
+#include <algorithm>
 
 namespace shell::common
 {
@@ -173,7 +174,7 @@ namespace shell::common
                }
 
                // 取最早出现的特殊字符位置作为当前普通片段终点。
-               size_t string_end = std::min({string_space, string_apostrophe, string_quote, string_backslash});
+               size_t string_end = (std::min)({string_space, string_apostrophe, string_quote, string_backslash});
                tokenized_input.emplace_back(input.substr(idx, string_end - idx));
                idx = string_end;
            }

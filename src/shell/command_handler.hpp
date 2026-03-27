@@ -34,9 +34,10 @@ namespace shell
         auto [keyword, tokenized_input] = common::extract_keyword_input(command);
 
         // 若命中内建命令，直接走内建处理逻辑。
-        if (string_to_command.contains(keyword))
+        auto it = string_to_command.find(keyword);
+        if (it != string_to_command.end())
         {
-            return string_to_command[keyword](tokenized_input);
+            return it->second(tokenized_input);
         }
 
         // 兼容被引号包裹的外部命令名（例如 "'ls' -la" 的第一段）。
